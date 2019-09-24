@@ -29,6 +29,12 @@ provider:
 #  region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - "dynamodb:*"
+    Resource: "*"
+
 #  iamRoleStatements:
 #    - Effect: "Allow"
 #      Action:
@@ -50,11 +56,13 @@ provider:
 
 # you can add packaging information here
 package:
-  artifact: target/hello-dev.jar
+  artifact: target/bills-api-dev.jar
 
 functions:
-  hello:
-    handler: com.serverless.Handler
+  get-transactions:
+    handler: com.serverless.GetTransactionsHandler
+  post-transaction:
+    handler: com.serverless.PostTransactionsHandler
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -94,6 +102,26 @@ functions:
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
+
+resources:
+  Resources:
+    transactionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: transactions_table
+        AttributeDefinitions:
+          - AttributeName: account_id
+            AttributeType: S
+          - AttributeName: transaction_date
+            AttributeType: S
+        KeySchema:
+          - AttributeName: account_id
+            KeyType: HASH
+          - AttributeName: transaction_date
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 # you can add CloudFormation resource templates here
 #resources:
