@@ -1,13 +1,14 @@
-package com.serverless;
-
-import java.util.Collections;
-import java.util.Map;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+package com.serverless.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.serverless.models.ApiGatewayResponse;
+import com.serverless.models.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Collections;
+import java.util.Map;
 
 public class Handler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 

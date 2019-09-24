@@ -23,17 +23,18 @@ service: serverless-aws-java
 provider:
   name: aws
   runtime: java8
+  region: us-east-1
 
 # you can overwrite defaults here
 #  stage: dev
-#  region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
-iamRoleStatements:
-  - Effect: "Allow"
-    Action:
-      - "dynamodb:*"
-    Resource: "*"
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:UpdateItem
+        - dynamodb:Query
+      Resource: "arn:aws:dynamodb:us-east-1:417990783766:table/transactions"
 
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -59,10 +60,9 @@ package:
   artifact: target/bills-api-dev.jar
 
 functions:
-  get-transactions:
-    handler: com.serverless.GetTransactionsHandler
-  post-transaction:
-    handler: com.serverless.PostTransactionsHandler
+  add-transaction:
+    handler: com.serverless.handlers.AddTransactionHandler
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -110,14 +110,14 @@ resources:
       Properties:
         TableName: transactions
         AttributeDefinitions:
-          - AttributeName: id
+          - AttributeName: AccountId
             AttributeType: S
-          - AttributeName: date
+          - AttributeName: Date
             AttributeType: S
         KeySchema:
-          - AttributeName: id
+          - AttributeName: AccountId
             KeyType: HASH
-          - AttributeName: date
+          - AttributeName: Date
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
