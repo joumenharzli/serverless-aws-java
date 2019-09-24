@@ -108,16 +108,16 @@ resources:
     transactionsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: transactions_table
+        TableName: transactions
         AttributeDefinitions:
-          - AttributeName: account_id
+          - AttributeName: id
             AttributeType: S
-          - AttributeName: transaction_date
+          - AttributeName: date
             AttributeType: S
         KeySchema:
-          - AttributeName: account_id
+          - AttributeName: id
             KeyType: HASH
-          - AttributeName: transaction_date
+          - AttributeName: date
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
