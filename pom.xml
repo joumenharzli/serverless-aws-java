@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.serverless</groupId>
-    <artifactId>hello</artifactId>
+    <artifactId>bills-api</artifactId>
     <packaging>jar</packaging>
     <version>dev</version>
-    <name>hello</name>
+    <name>bills-api</name>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
