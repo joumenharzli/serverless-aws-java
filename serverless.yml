@@ -25,7 +25,7 @@ provider:
   runtime: java8
   region: us-east-1
   environment:
-    BUCKET_NAME: "bills-79879873-${self:provider.region}"
+    BUCKET_NAME: "bills-79879873-${self:provider.stage}"
     BILLS_TABLE_NAME: "bills-${self:provider.stage}"
     CLIENTS_TABLE_NAME: "client-${self:provider.stage}"
 
@@ -38,18 +38,18 @@ provider:
       Action:
         - dynamodb:UpdateItem
         - dynamodb:Query
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${env:BILLS_TABLE_NAME}"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.BILLS_TABLE_NAME}"
     #   Resource: { "Fn::Join": ["", ["arn:aws:dynamodb",{"Ref":"AWS::Region"},{"Ref":"AWS::AccountId"},{} ] ]  }
     - Effect: "Allow"
       Action:
         - dynamodb:UpdateItem
         - dynamodb:Query
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${env:CLIENTS_TABLE_NAME}"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.CLIENTS_TABLE_NAME}"
     - Effect: "Allow"
       Action:
         - s3:PutObject
         - s3:GetObject
-      Resource: "arn:aws:s3:::${env:BUCKET_NAME}"
+      Resource: "arn:aws:s3:::${self:provider.environment.BUCKET_NAME}"
 
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -184,7 +184,7 @@ resources:
     billsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${env:BILLS_TABLE_NAME}
+        TableName: ${self:provider.environment.BILLS_TABLE_NAME}
         AttributeDefinitions:
           - AttributeName: ClientId
             AttributeType: S
@@ -202,7 +202,7 @@ resources:
     clientsTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${env:CLIENTS_TABLE_NAME}
+        TableName: ${self:provider.environment.CLIENTS_TABLE_NAME}
         AttributeDefinitions:
           - AttributeName: Id
             AttributeType: S
@@ -216,7 +216,7 @@ resources:
     billsBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${env:BUCKET_NAME}
+        BucketName: ${self:provider.environment.BUCKET_NAME}
         AccessControl: PublicRead
 
 # you can add CloudFormation resource templates here
