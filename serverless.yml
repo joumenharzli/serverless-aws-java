@@ -50,6 +50,7 @@ provider:
       Action:
         - s3:PutObject
         - s3:GetObject
+        - s3:GetBucketLocation
       Resource: "arn:aws:s3:::${self:provider.environment.BUCKET_NAME}/*"
 
 #  iamRoleStatements:
@@ -219,6 +220,19 @@ resources:
       Properties:
         BucketName: ${self:provider.environment.BUCKET_NAME}
         AccessControl: PublicRead
+        CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
 
 # you can add CloudFormation resource templates here
 #resources:
