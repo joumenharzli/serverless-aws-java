@@ -2,7 +2,6 @@ package com.serverless.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverless.domain.Transaction;
 import com.serverless.dto.AddTransactionDto;
@@ -29,8 +28,7 @@ public class AddTransactionHandler implements RequestHandler<Map<String, Object>
         String accountId = pathParameters.get("accountId");
 
         try {
-            AddTransactionDto dto = new ObjectMapper().convertValue(input.get("body"), new TypeReference<AddTransactionDto>() {
-            });
+            AddTransactionDto dto = new ObjectMapper().readValue((String) input.get("body"), AddTransactionDto.class);
 
             Transaction transaction = new Transaction();
             transaction.setAccountId(accountId);
