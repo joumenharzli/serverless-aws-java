@@ -24,6 +24,7 @@ provider:
   name: aws
   runtime: java8
   region: us-east-1
+  stage: ${opt:stage, 'dev'}
   environment:
     BUCKET_NAME: "bills-79879873-${self:provider.stage}"
     BILLS_TABLE_NAME: "bills-${self:provider.stage}"
