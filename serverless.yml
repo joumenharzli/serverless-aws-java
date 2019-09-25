@@ -50,7 +50,7 @@ provider:
       Action:
         - s3:PutObject
         - s3:GetObject
-      Resource: "arn:aws:s3:::${self:provider.environment.BUCKET_NAME}"
+      Resource: "arn:aws:s3:::${self:provider.environment.BUCKET_NAME}/*"
 
 #  iamRoleStatements:
 #    - Effect: "Allow"
