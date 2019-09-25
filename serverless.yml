@@ -60,13 +60,69 @@ package:
   artifact: target/bills-api-dev.jar
 
 functions:
-  add-transaction:
-    handler: com.serverless.handlers.AddTransactionHandler
+  add-bill:
+    handler: com.serverless.handlers.AddBillHandler
     timeout: 10
     events:
       - http:
-          path: /accounts/{accountId}/transactions
+          path: /clients/{clientId}/bills
           method: post
+
+  remove-bill:
+    handler: com.serverless.handlers.RemoveBillHandler
+    timeout: 10
+    events:
+      - http:
+          path: /clients/{clientId}/bills/{billId}
+          method: delete
+
+  validate-bill:
+    handler: com.serverless.handlers.ValidateBillHandler
+    timeout: 10
+    events:
+      - http:
+          path: /clients/{clientId}/bills/{billId}
+          method: patch
+
+  list-client-bills:
+    handler: com.serverless.handlers.ListClientBillsHandler
+    timeout: 10
+    events:
+      - http:
+          path: /clients/{clientId}/bills/{billId}
+          method: get
+
+  upload-bill-file:
+    handler: com.serverless.handlers.UploadBillFileHandler
+    timeout: 10
+    events:
+      - http:
+          path: /clients/{clientId}/bills/{billId}/files
+          method: post
+
+  add-client:
+    handler: com.serverless.handlers.AddClientHandler
+    timeout: 10
+    events:
+      - http:
+          path: /clients
+          method: post
+
+  remove-client:
+    handler: com.serverless.handlers.RemoveClientHandler
+    timeout: 10
+    events:
+      - http:
+          path: /clients/{clientId}
+          method: delete
+
+  list-clients:
+    handler: com.serverless.handlers.ListClientsHandler
+    timeout: 10
+    events:
+      - http:
+          path: /clients/{clientId}
+          method: delete
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
