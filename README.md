@@ -10,6 +10,7 @@ Start by creating a user with programmatic-access-only in AWS having the followi
 * IAMFullAccess
 * AWSLambdaFullAccess
 * CloudFormationFullAccess
+* AmazonAPIGatewayAdministrator
 
 Install serverless
 ```shell
@@ -33,5 +34,5 @@ $ serverless invoke --function add-transaction --data '{"pathParameters":{"accou
 ```
 To see logs use
 ```shell
-$ serverless log --function add-transaction 
+$ serverless logs --function add-transaction 
 ```
