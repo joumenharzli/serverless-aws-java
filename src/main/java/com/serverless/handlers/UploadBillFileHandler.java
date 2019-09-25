@@ -17,24 +17,24 @@ public class UploadBillFileHandler implements RequestHandler<Map<String, Object>
 
         Map<String, String> params = (Map<String, String>) input.get("pathParameters");
 
-        String accountId = params.get("accountId");
+        String clientId = params.get("clientId");
         String billId = params.get("billId");
-        String path = accountId + "/" + billId + ".pdf";
+        String path = clientId + "/" + billId + ".pdf";
 
         String body = (String) input.get("body");
 
         ByteArrayInputStream inputStream = new ByteArrayInputStream(body.getBytes());
 
-        String bucket_name = System.getenv("BUCKET_NAME");
+        String bucketName = System.getenv("BUCKET_NAME");
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType("application/pdf");
         objectMetadata.setContentLength(body.length());
 
-        S3Client.INSTANCE.putObject(bucket_name,
+        S3Client.INSTANCE.putObject(bucketName,
                 path, inputStream, objectMetadata);
 
-        String fileLocation = S3Client.INSTANCE.getBucketLocation(bucket_name) + "/" + path;
+        String fileLocation = S3Client.INSTANCE.getUrl(bucketName, path).toString();
 
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Location", fileLocation);
