@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UploadBillFileHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
+public class GetBillFileHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
@@ -33,18 +33,17 @@ public class UploadBillFileHandler implements RequestHandler<Map<String, Object>
                 );
 
         GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, path)
-                .withMethod(HttpMethod.PUT)
-                .withContentType("application/pdf")
+                .withMethod(HttpMethod.GET)
                 .withExpiration(expirationTime);
 
         URL url = S3Client.INSTANCE.generatePresignedUrl(generatePresignedUrlRequest);
 
-        HashMap<String, String> body = new HashMap<>();
-        body.put("uploadURL", url.toString());
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Location", url.toString());
 
         return ApiGatewayResponse.builder()
-                .setStatusCode(200)
-                .setObjectBody(body)
+                .setStatusCode(302)
+                .setHeaders(headers)
                 .build();
 
     }

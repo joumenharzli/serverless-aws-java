@@ -117,8 +117,16 @@ functions:
     timeout: 10
     events:
       - http:
+          path: /clients/{clientId}/bills/{billId}/files/uploadurl
+          method: get
+
+  get-bill-file:
+    handler: com.serverless.handlers.GetBillFileHandler
+    timeout: 10
+    events:
+      - http:
           path: /clients/{clientId}/bills/{billId}/files
-          method: post
+          method: get
 
   add-client:
     handler: com.serverless.handlers.AddClientHandler
