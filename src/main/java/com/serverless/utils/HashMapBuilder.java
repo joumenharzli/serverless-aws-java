@@ -1,4 +1,4 @@
-package com.serverless.handlers.utils;
+package com.serverless.utils;
 
 import java.util.HashMap;
 
@@ -11,7 +11,13 @@ public class HashMapBuilder<K, V> {
     }
 
     public static <K, V> HashMapBuilder<K, V> builder() {
-        return new HashMapBuilder<K, V>();
+        return new HashMapBuilder<>();
+    }
+
+    public static <K, V> HashMap<K, V> singleElement(K key, V value) {
+        HashMap<K, V> map = new HashMap<>();
+        map.put(key, value);
+        return map;
     }
 
     public HashMapBuilder<K, V> put(K key, V value) {

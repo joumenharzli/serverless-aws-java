@@ -5,10 +5,9 @@ import java.util.Objects;
 public class Bill {
     private String id;
     private String clientId;
-    private String filePath;
-    private String uploadDate;
     private Boolean validated;
     private Double amount;
+    private Boolean fileUploaded;
 
     public String getId() {
         return id;
@@ -26,20 +25,12 @@ public class Bill {
         this.clientId = clientId;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public Boolean getFileUploaded() {
+        return fileUploaded;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
-    public String getUploadDate() {
-        return uploadDate;
-    }
-
-    public void setUploadDate(String uploadDate) {
-        this.uploadDate = uploadDate;
+    public void setFileUploaded(Boolean fileUploaded) {
+        this.fileUploaded = fileUploaded;
     }
 
     public Boolean getValidated() {
@@ -76,10 +67,9 @@ public class Bill {
         return "Bill{" +
                 "id='" + id + '\'' +
                 ", clientId='" + clientId + '\'' +
-                ", filePath='" + filePath + '\'' +
-                ", uploadDate='" + uploadDate + '\'' +
                 ", validated=" + validated +
                 ", amount=" + amount +
+                ", fileUploaded=" + fileUploaded +
                 '}';
     }
 }

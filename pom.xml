@@ -20,6 +20,7 @@
         <aws-java-sdk-dynamodb.version>1.11.637</aws-java-sdk-dynamodb.version>
         <aws-java-sdk-s3.version>1.11.637</aws-java-sdk-s3.version>
         <dagger.version>2.24</dagger.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
 
     <dependencies>
@@ -72,12 +73,18 @@
             <artifactId>dagger</artifactId>
             <version>${dagger.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.google.dagger</groupId>
             <artifactId>dagger-compiler</artifactId>
             <version>${dagger.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+
 
     </dependencies>
 
