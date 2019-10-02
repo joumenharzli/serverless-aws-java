@@ -1,46 +1,37 @@
 package com.serverless.handlers;
 
-import com.amazonaws.HttpMethod;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
-import com.serverless.client.S3Client;
+import com.serverless.config.DaggerApplicationComponent;
+import com.serverless.handlers.utils.HashMapBuilder;
+import com.serverless.handlers.utils.LambdaUtils;
 import com.serverless.models.ApiGatewayResponse;
+import com.serverless.services.BillFileService;
 
 import java.net.URL;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UploadBillFileHandler implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
+    private final BillFileService billFileService;
+
+    public UploadBillFileHandler() {
+        this.billFileService = DaggerApplicationComponent.create().billFileService();
+    }
+
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> input, Context context) {
 
-        Map<String, String> params = (Map<String, String>) input.get("pathParameters");
+        Map<String, String> params = LambdaUtils.parsePathParameters(input);
         String clientId = params.get("clientId");
         String billId = params.get("billId");
-        String path = clientId + "/" + billId + ".pdf";
 
-        String bucketName = System.getenv("BUCKET_NAME");
+        URL url = billFileService.getBillFileUploadUrl(clientId, billId);
 
-        Date expirationTime =
-                Date.from(
-                        Instant.now()
-                                .plus(1, ChronoUnit.HOURS)
-                );
-
-        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, path)
-                .withMethod(HttpMethod.PUT)
-                .withContentType("application/pdf")
-                .withExpiration(expirationTime);
-
-        URL url = S3Client.INSTANCE.generatePresignedUrl(generatePresignedUrlRequest);
-
-        HashMap<String, String> body = new HashMap<>();
-        body.put("uploadURL", url.toString());
+        HashMap<String, String> body = HashMapBuilder.<String, String>builder()
+                .put("uploadURL", url.toString())
+                .build();
 
         return ApiGatewayResponse.builder()
                 .setStatusCode(200)
