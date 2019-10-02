@@ -34,20 +34,19 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public Client save(Client client) {
-        LOGGER.debug(() -> "DynamoBb Request to save client " + client);
+        LOGGER.debug(() -> "DynamoDB request to save client " + client);
 
         if (StringUtils.isEmpty(client.getId())) {
             client.setId(UUID.randomUUID().toString());
         }
 
         dbMapper.save(client, DEFAULT_CONFIG.build());
-
         return client;
     }
 
     @Override
     public Page<Client, String> findAll(Integer limit, String lastEvaluatedKey) {
-        LOGGER.debug(() -> "DynamoBb Request to fetch clients with limit " + limit
+        LOGGER.debug(() -> "DynamoDB request to fetch clients with limit " + limit
                 + " and last evaluated key " + lastEvaluatedKey);
 
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression().withLimit(limit);
