@@ -1,5 +1,6 @@
 package com.serverless.domain;
 
+import java.time.Instant;
 import java.util.Objects;
 
 public class Bill {
@@ -8,6 +9,7 @@ public class Bill {
     private Boolean validated;
     private Double amount;
     private Boolean fileUploaded;
+    private Instant creationDate;
 
     public String getId() {
         return id;

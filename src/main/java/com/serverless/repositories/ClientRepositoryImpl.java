@@ -20,6 +20,7 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     private static final Logger LOGGER = LogManager.getLogger(ClientRepositoryImpl.class);
     private static final String TABLE_NAME = System.getenv("CLIENTS_TABLE_NAME");
+    private static final String ID_ATTRIBUTE = "Id";
 
     private static final DynamoDBMapperConfig.Builder DEFAULT_CONFIG =
             DynamoDBMapperConfig.builder()
@@ -52,13 +53,13 @@ public class ClientRepositoryImpl implements ClientRepository {
         DynamoDBScanExpression scanExpression = new DynamoDBScanExpression().withLimit(limit);
 
         if (StringUtils.isNotEmpty(lastEvaluatedKey)) {
-            scanExpression = scanExpression.withExclusiveStartKey(
-                    HashMapBuilder.singleElement("id", new AttributeValue(lastEvaluatedKey))
+            scanExpression.withExclusiveStartKey(
+                    HashMapBuilder.singleElement(ID_ATTRIBUTE, new AttributeValue(lastEvaluatedKey))
             );
         }
 
         ScanResultPage<Client> scan = dbMapper.scanPage(Client.class, scanExpression, DEFAULT_CONFIG.build());
-        return new Page<>(scan.getResults(), scan.getLastEvaluatedKey().get("id").getS());
+        return new Page<>(scan.getResults(), scan.getLastEvaluatedKey().get(ID_ATTRIBUTE).getS());
 
     }
 }

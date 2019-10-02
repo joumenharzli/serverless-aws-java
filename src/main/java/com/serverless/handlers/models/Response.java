@@ -1,4 +1,4 @@
-package com.serverless.models;
+package com.serverless.handlers.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

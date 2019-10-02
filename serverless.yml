@@ -201,12 +201,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: ClientId
             AttributeType: S
-          - AttributeName: UploadDate
+          - AttributeName: CreationDate
             AttributeType: S
         KeySchema:
           - AttributeName: ClientId
             KeyType: HASH
-          - AttributeName: UploadDate
+          - AttributeName: CreationDate
             KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1

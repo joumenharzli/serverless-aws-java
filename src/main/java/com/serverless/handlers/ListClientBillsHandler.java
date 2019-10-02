@@ -2,7 +2,7 @@ package com.serverless.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.serverless.models.ApiGatewayResponse;
+import com.serverless.handlers.models.ApiGatewayResponse;
 
 import java.util.Map;
 
