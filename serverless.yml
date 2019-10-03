@@ -135,6 +135,8 @@ functions:
       - http:
           path: /clients
           method: post
+    layers:
+      - { Ref: JavalibsLambdaLayer }
 
   remove-client:
     handler: com.serverless.handlers.RemoveClientHandler
@@ -191,6 +193,17 @@ functions:
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
+
+layers:
+  javalibs:
+    path: target/layer
+    name: ${self:provider.stage}-javalibs
+    description: Java libs for lambda
+    compatibleRuntimes:
+      - java8
+    allowedAccounts:
+      - '*'
+    retain: false # optional, false by default. If true, layer versions are not deleted as new ones are created
 
 resources:
   Resources:
