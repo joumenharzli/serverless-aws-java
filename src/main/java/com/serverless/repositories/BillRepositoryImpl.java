@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.time.Instant;
 import java.util.UUID;
 
 public class BillRepositoryImpl implements BillRepository {
@@ -37,6 +38,8 @@ public class BillRepositoryImpl implements BillRepository {
         if (StringUtils.isEmpty(bill.getId())) {
             bill.setId(UUID.randomUUID().toString());
         }
+
+        bill.setCreationDate(Instant.now());
 
         dbMapper.save(bill, DEFAULT_CONFIG.build());
         return bill;

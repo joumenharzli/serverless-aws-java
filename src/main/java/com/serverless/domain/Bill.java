@@ -1,15 +1,28 @@
 package com.serverless.domain;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+
 import java.time.Instant;
 import java.util.Objects;
 
+@DynamoDBTable(tableName = "")
 public class Bill {
+
     private String id;
+
+    @DynamoDBHashKey(attributeName = "ClientId")
     private String clientId;
-    private Boolean validated;
-    private Double amount;
-    private Boolean fileUploaded;
+
+    @DynamoDBRangeKey(attributeName = "ClientId")
     private Instant creationDate;
+
+    private Boolean validated;
+
+    private Double amount;
+
+    private Boolean fileUploaded;
 
     public String getId() {
         return id;
@@ -49,6 +62,14 @@ public class Bill {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public Instant getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Instant creationDate) {
+        this.creationDate = creationDate;
     }
 
     @Override

@@ -1,10 +1,18 @@
 package com.serverless.domain;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+
 import java.util.Objects;
 
+@DynamoDBTable(tableName = "")
 public class Client {
 
+    @DynamoDBHashKey(attributeName = "Id")
     private String id;
+
+    @DynamoDBAttribute(attributeName = "Name")
     private String name;
 
     public String getId() {

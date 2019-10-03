@@ -11,7 +11,7 @@ public interface BillService {
 
     BillDto add(AddBillDto bill);
 
-    BillDto update(AddBillDto bill);
+    BillDto update(BillDto bill);
 
     Page<BillDto, Map<String, String>> findByClientId(String clientId, Integer limit, String lastEvaluatedKey);
 
