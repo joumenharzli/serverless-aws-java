@@ -60,6 +60,16 @@ public class ClientRepositoryImpl implements ClientRepository {
 
         ScanResultPage<Client> scan = dbMapper.scanPage(Client.class, scanExpression, DEFAULT_CONFIG.build());
         return new Page<>(scan.getResults(), scan.getLastEvaluatedKey().get(ID_ATTRIBUTE).getS());
+    }
 
+    @Override
+    public void delete(String clientId) {
+
+        LOGGER.debug(() -> "Request to delete client with id " + clientId);
+
+        Client client = new Client();
+        client.setId(clientId);
+
+        dbMapper.delete(client, DEFAULT_CONFIG.build());
     }
 }

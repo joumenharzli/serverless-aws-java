@@ -10,6 +10,8 @@ import com.serverless.repositories.ClientRepository;
 import com.serverless.repositories.ClientRepositoryImpl;
 import com.serverless.services.BillFileService;
 import com.serverless.services.BillFileServiceImpl;
+import com.serverless.services.ClientService;
+import com.serverless.services.ClientServiceImpl;
 import dagger.Module;
 import dagger.Provides;
 
@@ -35,7 +37,6 @@ public class ApplicationModule {
     @Singleton
     public AmazonS3 amazonS3() {
         return AmazonS3ClientBuilder.defaultClient();
-
     }
 
     @Provides
@@ -48,6 +49,12 @@ public class ApplicationModule {
     @Singleton
     public BillFileService billFileService(AmazonS3 amazonS3) {
         return new BillFileServiceImpl(amazonS3);
+    }
+
+    @Provides
+    @Singleton
+    public ClientService clientService(ClientRepository clientRepository) {
+        return new ClientServiceImpl(clientRepository);
     }
 
 

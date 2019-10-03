@@ -13,7 +13,7 @@ public interface BillService {
 
     BillDto update(AddBillDto bill);
 
-    Page<BillDto, Map<String, String>> findByClientId(String clientId);
+    Page<BillDto, Map<String, String>> findByClientId(String clientId, Integer limit, String lastEvaluatedKey);
 
     void delete(String clientId, String billId);
 

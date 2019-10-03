@@ -9,4 +9,5 @@ public interface ClientRepository {
 
     Page<Client, String> findAll(Integer limit, String lastEvaluatedKey);
 
+    void delete(String clientId);
 }

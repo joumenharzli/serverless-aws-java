@@ -2,6 +2,8 @@ package com.serverless.utils;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Page<T, K> {
 
@@ -11,6 +13,11 @@ public class Page<T, K> {
     public Page(List<T> elements, K lastEvaluatedKey) {
         this.elements = elements;
         this.lastEvaluatedKey = lastEvaluatedKey;
+    }
+
+    public <J> Page<J, K> map(Function<T, J> fn) {
+        List<J> mappedElements = elements.stream().map(fn).collect(Collectors.toList());
+        return new Page<>(mappedElements, lastEvaluatedKey);
     }
 
     public List<T> getElements() {

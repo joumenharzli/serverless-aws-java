@@ -33,7 +33,7 @@ public class GetBillFileHandler implements RequestHandler<Map<String, Object>, A
         String clientId = params.get("clientId");
         String billId = params.get("billId");
 
-        URL url = billFileService.getBillFileUploadUrl(clientId, billId);
+        URL url = billFileService.getBillFileUrl(clientId, billId);
 
         HashMap<String, String> headers = HashMapBuilder.singleElement("Location", url.toString());
 

@@ -8,8 +8,8 @@ public interface ClientService {
 
     ClientDto add(AddClientDto client);
 
-    Page<ClientDto, String> findAll();
+    Page<ClientDto, String> findAll(Integer limit, String lastEvaluatedKey);
 
-    void deleteClient(String clientId);
+    void delete(String clientId);
 
 }
