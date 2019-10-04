@@ -22,11 +22,27 @@ $ serverless config credentials --provider aws --key <key> --secret <secret>
 ```
 
 ## Build and deployment
+### First build
+We need to create a lambda layer that contains the java dependencies
 ```shell
-$ mvn clean install
+$ cd serverless
+$ mvn clean package
+$ cd ../javalibs-layer
+$ serverless deploy
+```
+Then deploy the serverless application
+```shell
+$ cd serverless
 $ serverless deploy
 ```
 
+## Development
+if the dependencies was not changed you can simply build and deploy the project
+```shell
+$ cd serverless
+$ mvn clean package
+$ serverless deploy
+```  
 ## Testing
 You can test a function using
 ```shell
