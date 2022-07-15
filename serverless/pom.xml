@@ -18,7 +18,7 @@
         <maven-shade-plugin.version>2.3</maven-shade-plugin.version>
         <maven-shade-plugin-log4j2.version>2.8.1</maven-shade-plugin-log4j2.version>
         <aws-java-sdk-dynamodb.version>1.11.637</aws-java-sdk-dynamodb.version>
-        <aws-java-sdk-s3.version>1.11.637</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.261</aws-java-sdk-s3.version>
         <dagger.version>2.24</dagger.version>
         <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
